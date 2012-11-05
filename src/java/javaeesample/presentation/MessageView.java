@@ -4,6 +4,7 @@
  */
 package javaeesample.presentation;
 
+import java.util.Date;
 import java.util.List;
 import javaeesample.entity.Message;
 import javaeesample.entity.MessageFacade;
@@ -24,6 +25,16 @@ public class MessageView {
     
     private Message message;
     
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
     /**
      * Creates a new instance of MessageView
      */
@@ -36,7 +47,13 @@ public class MessageView {
     }
     
     public String postMessage() {
+        String value = date == null ? "" : date.toString();
+        message.setMessage(message.getMessage() + value);
         messageFacade.create(message);
+        
+        date = null;
+        message.setMessage("");
+        
         return "index";
     }
     
